@@ -13,7 +13,7 @@
     <meta property="og:image" content="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=80" />
     <link rel="preconnect" href="https://images.unsplash.com" />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/style.css?v=20260625-3" />
   </head>
 
   <body>
@@ -61,13 +61,15 @@
       <section class="section about reveal" id="about">
         <div class="section-heading">
           <p class="eyebrow">about</p>
-          <h2>Partner digital untuk ide yang ingin bergerak lebih jauh.</h2>
+          <div class="section-heading-content">
+            <h2>Partner digital untuk ide yang ingin bergerak lebih jauh.</h2>
+            <p>
+              VixelTech membantu bisnis, sekolah, komunitas, dan brand personal
+              mengubah kebutuhan digital menjadi produk yang jelas, mudah digunakan,
+              dan mudah dikembangkan.
+            </p>
+          </div>
         </div>
-        <p class="section-text">
-          VixelTech membantu bisnis, sekolah, komunitas, dan brand personal
-          mengubah kebutuhan digital menjadi produk yang jelas, mudah digunakan,
-          dan mudah dikembangkan.
-        </p>
 
         <div class="about-grid">
           <article>
@@ -103,7 +105,9 @@
       <section class="section features reveal" id="features">
         <div class="section-heading">
           <p class="eyebrow">features</p>
-          <h2>Fondasi kerja yang membuat proyek terasa tenang.</h2>
+          <div class="section-heading-content">
+            <h2>Fondasi kerja yang membuat proyek terasa tenang.</h2>
+          </div>
         </div>
 
         <div class="grid three-columns">
@@ -128,7 +132,9 @@
       <section class="section services reveal" id="services">
         <div class="section-heading">
           <p class="eyebrow">services</p>
-          <h2>Layanan digital yang bisa langsung disesuaikan.</h2>
+          <div class="section-heading-content">
+            <h2>Layanan digital yang bisa langsung disesuaikan.</h2>
+          </div>
         </div>
 
         <div class="grid service-list">
@@ -154,35 +160,54 @@
       <section class="section testimonials reveal" id="testimonials">
         <div class="section-heading">
           <p class="eyebrow">testimonials</p>
-          <h2>Dipercaya untuk membuat proses digital terasa lebih mudah.</h2>
+          <div class="section-heading-content">
+            <h2>Dipercaya untuk membuat proses digital terasa lebih mudah.</h2>
+          </div>
         </div>
 
-        <div class="grid three-columns">
+        <div class="grid three-columns" id="testimonialList">
           <article class="testimonial-card">
-            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=240&q=80" alt="Foto pelanggan bernama Rania" loading="lazy" />
+            <div class="testimonial-avatar" aria-hidden="true"></div>
             <p>"Website baru kami terlihat profesional dan lebih mudah dipahami pelanggan."</p>
             <h3>Rania Putri</h3>
             <span>Owner Bloom Studio</span>
           </article>
           <article class="testimonial-card">
-            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=240&q=80" alt="Foto pelanggan bernama Dimas" loading="lazy" />
+            <div class="testimonial-avatar" aria-hidden="true"></div>
             <p>"Dashboard internal yang dibuat VixelTech membantu tim bekerja lebih cepat."</p>
             <h3>Dimas Arya</h3>
             <span>Manager Operasional</span>
           </article>
           <article class="testimonial-card">
-            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=240&q=80" alt="Foto pelanggan bernama Nadine" loading="lazy" />
+            <div class="testimonial-avatar" aria-hidden="true"></div>
             <p>"Komunikasinya jelas, tampilannya modern, dan hasil akhirnya siap dipakai."</p>
             <h3>Nadine Salsabila</h3>
             <span>Founder EduSpark</span>
           </article>
         </div>
+
+        <form class="testimonial-form" id="testimonialForm" novalidate>
+          <label for="testimonialName">Nama</label>
+          <input id="testimonialName" name="testimonialName" type="text" placeholder="Anonymous" />
+
+          <label for="testimonialRole">Sebagai</label>
+          <input id="testimonialRole" name="testimonialRole" type="text" placeholder="Pengunjung" />
+
+          <label for="testimonialMessage">Testimonial</label>
+          <textarea id="testimonialMessage" name="testimonialMessage" rows="4" placeholder="Tulis pengalamanmu"></textarea>
+          <small class="error-message" id="testimonialMessageError"></small>
+
+          <button class="btn btn-primary" type="submit">Simpan Testimonial</button>
+          <p class="form-status" id="testimonialStatus" role="status"></p>
+        </form>
       </section>
 
       <section class="section gallery reveal" id="gallery">
         <div class="section-heading">
           <p class="eyebrow">gallery</p>
-          <h2>Cuplikan suasana kerja dan produk digital kami.</h2>
+          <div class="section-heading-content">
+            <h2>Cuplikan suasana kerja dan produk digital kami.</h2>
+          </div>
         </div>
 
         <div class="gallery-grid">
@@ -198,7 +223,9 @@
       <section class="section faq reveal" id="faq">
         <div class="section-heading">
           <p class="eyebrow">faq</p>
-          <h2>Pertanyaan yang sering muncul sebelum mulai proyek.</h2>
+          <div class="section-heading-content">
+            <h2>Pertanyaan yang sering muncul sebelum mulai proyek.</h2>
+          </div>
         </div>
 
         <div class="faq-list">
@@ -218,13 +245,15 @@
       </section>
 
       <section class="section contact reveal" id="contact">
-        <div class="contact-copy">
+        <div class="contact-copy section-heading">
           <p class="eyebrow">contact</p>
-          <h2>Ceritakan kebutuhan digitalmu.</h2>
-          <p>
-            Mulai dari halaman sederhana sampai sistem yang lebih lengkap,
-            VixelTech siap membantu menyusun langkah pertama.
-          </p>
+          <div class="section-heading-content">
+            <h2>Ceritakan kebutuhan digitalmu.</h2>
+            <p>
+              Mulai dari halaman sederhana sampai sistem yang lebih lengkap,
+              VixelTech siap membantu menyusun langkah pertama.
+            </p>
+          </div>
         </div>
         <form class="contact-form" id="contactForm" novalidate>
           <label for="name">Nama</label>
@@ -264,6 +293,6 @@
 
     <button class="back-to-top" id="backToTop" type="button" aria-label="Kembali ke atas">&uarr;</button>
 
-    <script src="js/script.js"></script>
+    <script src="js/script.js?v=20260625-3"></script>
   </body>
 </html>

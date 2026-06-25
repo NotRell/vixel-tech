@@ -4,8 +4,12 @@ const themeBtn = document.getElementById("themeBtn");
 const backToTop = document.getElementById("backToTop");
 const contactForm = document.getElementById("contactForm");
 const formStatus = document.getElementById("formStatus");
+const testimonialList = document.getElementById("testimonialList");
+const testimonialForm = document.getElementById("testimonialForm");
+const testimonialStatus = document.getElementById("testimonialStatus");
 
 const savedTheme = localStorage.getItem("theme");
+const TESTIMONIAL_STORAGE_KEY = "vixelTechTestimonials";
 let themeAnimationTimer;
 
 if (savedTheme === "light") {
@@ -116,7 +120,102 @@ const counterObserver = new IntersectionObserver(
 document.querySelectorAll("[data-counter]").forEach((counter) => counterObserver.observe(counter));
 
 function showError(id, message) {
-  document.getElementById(id).textContent = message;
+  const target = document.getElementById(id);
+  if (target) {
+    target.textContent = message;
+  }
+}
+
+function getStoredTestimonials() {
+  try {
+    const savedTestimonials = JSON.parse(localStorage.getItem(TESTIMONIAL_STORAGE_KEY) || "[]");
+    if (!Array.isArray(savedTestimonials)) {
+      return [];
+    }
+
+    return savedTestimonials.filter((testimonial) => {
+      return testimonial && typeof testimonial.message === "string" && testimonial.message.trim().length > 0;
+    });
+  } catch {
+    return [];
+  }
+}
+
+function saveStoredTestimonials(testimonials) {
+  localStorage.setItem(TESTIMONIAL_STORAGE_KEY, JSON.stringify(testimonials.slice(0, 12)));
+}
+
+function createAnonymousAvatar() {
+  const avatar = document.createElement("div");
+  avatar.className = "testimonial-avatar";
+  avatar.setAttribute("aria-hidden", "true");
+  return avatar;
+}
+
+function createTestimonialCard(testimonial) {
+  const article = document.createElement("article");
+  article.className = "testimonial-card";
+  article.dataset.localTestimonial = "true";
+
+  const message = document.createElement("p");
+  const name = document.createElement("h3");
+  const role = document.createElement("span");
+
+  message.textContent = `"${testimonial.message}"`;
+  name.textContent = testimonial.name || "Anonymous";
+  role.textContent = testimonial.role || "Pengunjung";
+
+  article.append(createAnonymousAvatar(), message, name, role);
+  return article;
+}
+
+function renderStoredTestimonials() {
+  if (!testimonialList) {
+    return;
+  }
+
+  testimonialList.querySelectorAll("[data-local-testimonial='true']").forEach((item) => item.remove());
+
+  const firstStaticCard = testimonialList.firstElementChild;
+  getStoredTestimonials().forEach((testimonial) => {
+    testimonialList.insertBefore(createTestimonialCard(testimonial), firstStaticCard);
+  });
+}
+
+renderStoredTestimonials();
+
+if (testimonialForm) {
+  testimonialForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const name = document.getElementById("testimonialName").value.trim();
+    const role = document.getElementById("testimonialRole").value.trim();
+    const message = document.getElementById("testimonialMessage").value.trim();
+
+    showError("testimonialMessageError", "");
+    testimonialStatus.textContent = "";
+
+    if (message.length < 10) {
+      showError("testimonialMessageError", "Testimonial minimal 10 karakter.");
+      testimonialStatus.textContent = "Periksa kembali testimonial yang diisi.";
+      testimonialStatus.className = "form-status is-error";
+      return;
+    }
+
+    const testimonials = getStoredTestimonials();
+    testimonials.unshift({
+      name: name.slice(0, 48) || "Anonymous",
+      role: role.slice(0, 56) || "Pengunjung",
+      message: message.slice(0, 220),
+      createdAt: new Date().toISOString(),
+    });
+
+    saveStoredTestimonials(testimonials);
+    renderStoredTestimonials();
+    testimonialForm.reset();
+    testimonialStatus.textContent = "Testimonial tersimpan.";
+    testimonialStatus.className = "form-status is-success";
+  });
 }
 
 contactForm.addEventListener("submit", (event) => {
